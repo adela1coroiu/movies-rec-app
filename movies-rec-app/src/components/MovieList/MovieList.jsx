@@ -1,13 +1,15 @@
 import './MovieList.css'
-import moviesData from '../../../movies_data/movies.json'
 import MovieCard from '../MovieCard/MovieCard';
 
-function MovieList({ onWatchLater }) {
+function MovieList({ movies, onWatchLater }) {
     return (
         <div className='movie-list-container'>
-            {moviesData.map((movie) => (
+            {movies.length > 0 ? (
+                movies.map((movie) => (
                 <MovieCard key={movie.id} title={movie.title} image={movie.image} genre={movie.genre} rating={movie.rating} onButtonClick={() => onWatchLater(movie)} variant="add"/>
-            ))}
+            ))) : (
+                <p className='no-results'>No movies found matching your search!</p>
+            )}
         </div>
     );
 }

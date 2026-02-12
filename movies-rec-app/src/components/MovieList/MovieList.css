@@ -7,3 +7,19 @@
     flex: 1;
     overflow-y: auto;
 }
+
+.no-results {
+    grid-column: 1 / -1;
+    color: rgb(127, 16, 16);
+    font-family: 'Limelight';
+    font-size: 24px;
+    padding: 50px 40px;
+    text-align: center;
+    margin-top: 50px;
+    border: 2px solid rgb(255, 111, 33);
+    border-radius: 20px;
+    background-color: rgb(255, 218, 166);
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
