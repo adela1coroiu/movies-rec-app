@@ -14,11 +14,13 @@ function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
+  const [selectedRating, setSelectedRating] = useState("");
 
   const filteredMovies = moviesData.filter((movie) => {
     const matchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesGenre = selectedGenre === "" || movie.genre.toLowerCase() === selectedGenre.toLowerCase();
-    return matchesSearch && matchesGenre;
+    const matchesRating = selectedRating === "" || parseFloat(movie.rating) >= parseFloat(selectedRating);
+    return matchesSearch && matchesGenre && matchesRating;
   });
 
   return (
@@ -34,7 +36,7 @@ function App() {
           <>
             <SearchBar query={searchQuery} setQuery={setSearchQuery}/>
             {/* filters for search, such as genre and rating */}
-            <FiltersBar selectedGenre={selectedGenre} onGenreChange={setSelectedGenre}/>
+            <FiltersBar selectedGenre={selectedGenre} onGenreChange={setSelectedGenre} selectedRating={selectedRating} onRatingChange={setSelectedRating}/>
             <MovieList movies={filteredMovies} onWatchLater={addToWatchlist}/>
           </>
         ) : (
