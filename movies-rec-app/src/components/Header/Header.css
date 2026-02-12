@@ -11,6 +11,7 @@
     border-bottom-right-radius: 35px;
     position: sticky;
     top: 0;
+    z-index: 1000;
 }
 
 .logo {
@@ -24,5 +25,6 @@
   font-family: "Bungee Spice", cursive;
   font-size: 48px;
   justify-self: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 

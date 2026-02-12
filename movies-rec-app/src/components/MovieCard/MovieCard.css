@@ -34,13 +34,29 @@
 }
 
 .watch-later-button:hover img {
-    width: 45px;
-    height: 45px;
+    transform: scale(1.20);
 }
 
 .watch-later-button img {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
+}
+
+.remove-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+}
+
+.remove-button:hover img {
+    transform: scale(1.20);
+}
+
+.remove-button img {
+    width: 36px;
+    height: 36px;
 }
 
 .movie-title {
@@ -51,21 +67,26 @@
 .movie-rating {
     align-self: center;
     font-weight: bold;
+    font-family: 'Limelight';
+    font-size: 20px;
     padding: 2px 8px;
     border-radius: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 .high-rating {
     color: green;
-    background-color: rgb(179, 253, 179);
+    background-color: rgb(195, 248, 195);
 }
 
 .medium-rating {
-    color: rgb(214, 181, 15);
-    background-color: rgb(255, 244, 175);
+    color: rgb(211, 176, 2);
+    background-color: rgb(255, 245, 182);
 }
 
 .low-rating {
-    color: rgb(222, 127, 2);
-    background-color: rgb(255, 207, 149);
+    color: rgb(220, 125, 0);
+    background-color: rgb(255, 221, 180);
 }
+

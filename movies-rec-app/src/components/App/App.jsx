@@ -3,21 +3,13 @@ import NavBar from "../NavBar/NavBar.jsx";
 import MovieList from "../MovieList/MovieList.jsx";
 import FiltersBar from "../FiltersBar/FiltersBar.jsx";
 import "./App.css";
+import { useWatchlist } from "../../hooks/useWatchlist.js";
+import { useState } from "react";
+import WatchLater from "../WatchLater/WatchLater.jsx";
 
 function App() {
-  const addToWatchLater = (movie) => {
-    const currentWatchList = JSON.parse(localStorage.getItem('watchlist')) || [];
-    const isAlreadyAdded = currentWatchList.some(item => item.id === movie.id);
-
-    if(!isAlreadyAdded) {
-      const updatedWatchList = [...currentWatchList, movie];
-      localStorage.setItem('watchlist', JSON.stringify(updatedWatchList));
-      alert(`${movie.title} added to Watch later!`);
-    }
-    else {
-      alert(`${movie.title} is already in the Watch later list!`);
-    }
-  }
+  const { addToWatchlist } = useWatchlist();
+  const [currentScreen, setCurrentScreen] = useState('home');
 
   return (
     <div className="app-container">
@@ -26,20 +18,23 @@ function App() {
 
       <main className="main-container">
         {/* navigation row with two buttons, home and watchlist */}
-        <NavBar/>
+        <NavBar setScreen={setCurrentScreen} currentScreen={currentScreen}/>
 
-        {/* search bar with input and button */}
-        <div className="search-container">
-          <input type="text" placeholder="Search for a movie..." className="search-input"></input>
-          <button className="search-button">Search</button>
-        </div>
-
-        {/* filters for search, such as genre and rating */}
-        <FiltersBar/>
-
-        <MovieList onWatchLater={addToWatchLater}/>
-      </main>
-       
+        {currentScreen === 'home' ? (
+          <>
+            {/* search bar with input and button */}
+            <div className="search-container">
+              <input type="text" placeholder="Search for a movie..." className="search-input"></input>
+              <button className="search-button">Search</button>
+            </div>
+            {/* filters for search, such as genre and rating */}
+            <FiltersBar/>
+            <MovieList onWatchLater={addToWatchlist}/>
+          </>
+        ) : (
+          <WatchLater/>
+        )}
+      </main>     
     </div>
   );
 }
