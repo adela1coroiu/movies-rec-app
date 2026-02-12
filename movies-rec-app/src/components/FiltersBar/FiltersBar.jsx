@@ -1,9 +1,9 @@
 import './FiltersBar.css';
 
-function FiltersBar() {
+function FiltersBar({selectedGenre, onGenreChange}) {
     return (
         <div className="filters-container">
-          <select className="filter-dropdown" name="genre">
+          <select className="filter-dropdown" name="genre" value={selectedGenre} onChange={(event) => onGenreChange(event.target.value)}>
             <option value="">All Genres</option>
             <option value="drama">Drama</option>
             <option value="fantasy">Fantasy</option>
