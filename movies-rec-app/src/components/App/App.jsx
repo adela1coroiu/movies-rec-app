@@ -13,8 +13,13 @@ function App() {
   const { addToWatchlist } = useWatchlist();
   const [currentScreen, setCurrentScreen] = useState('home');
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
 
-  const filteredMovies = moviesData.filter((movie) => movie.title.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredMovies = moviesData.filter((movie) => {
+    const matchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesGenre = selectedGenre === "" || movie.genre.toLowerCase() === selectedGenre.toLowerCase();
+    return matchesSearch && matchesGenre;
+  });
 
   return (
     <div className="app-container">
@@ -29,7 +34,7 @@ function App() {
           <>
             <SearchBar query={searchQuery} setQuery={setSearchQuery}/>
             {/* filters for search, such as genre and rating */}
-            <FiltersBar/>
+            <FiltersBar selectedGenre={selectedGenre} onGenreChange={setSelectedGenre}/>
             <MovieList movies={filteredMovies} onWatchLater={addToWatchlist}/>
           </>
         ) : (
