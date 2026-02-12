@@ -6,10 +6,15 @@ import "./App.css";
 import { useWatchlist } from "../../hooks/useWatchlist.js";
 import { useState } from "react";
 import WatchLater from "../WatchLater/WatchLater.jsx";
+import moviesData from '../../../movies_data/movies.json';
+import SearchBar from "../SearchBar/SearchBar.jsx";
 
 function App() {
   const { addToWatchlist } = useWatchlist();
   const [currentScreen, setCurrentScreen] = useState('home');
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredMovies = moviesData.filter((movie) => movie.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <div className="app-container">
@@ -22,14 +27,10 @@ function App() {
 
         {currentScreen === 'home' ? (
           <>
-            {/* search bar with input and button */}
-            <div className="search-container">
-              <input type="text" placeholder="Search for a movie..." className="search-input"></input>
-              <button className="search-button">Search</button>
-            </div>
+            <SearchBar query={searchQuery} setQuery={setSearchQuery}/>
             {/* filters for search, such as genre and rating */}
             <FiltersBar/>
-            <MovieList onWatchLater={addToWatchlist}/>
+            <MovieList movies={filteredMovies} onWatchLater={addToWatchlist}/>
           </>
         ) : (
           <WatchLater/>

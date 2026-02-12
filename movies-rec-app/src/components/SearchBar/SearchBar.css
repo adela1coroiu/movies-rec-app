@@ -1,0 +1,29 @@
+.search-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 30px;
+  background-color: rgba(255, 255, 255, 0.855);
+  border: 2px solid rgb(109, 27, 27);
+  border-radius: 40px;
+}
+
+.search-input {
+  padding: 10px 30px;
+  font-family: 'Limelight';
+  font-size: 20px;
+  text-align: center;
+  border: none;
+  background-color: transparent;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.search-icon {
+  width: 40px;
+  height: 40px;
+}
