@@ -22,7 +22,7 @@ export function useWatchlist() {
     };
 
     const removeFromWatchlist = (movieId) => {
-        setWatchlist(prev => prev.filter(movie => movie.id !== movieId));
+        setWatchlist(prev => prev.filter(movie => movie.id !== movieId)); 
     };
 
     return { watchlist, addToWatchlist, removeFromWatchlist };

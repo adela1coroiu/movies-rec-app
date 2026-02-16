@@ -20,7 +20,7 @@ function WatchLater() {
                     <div className='watchlater-list-container'>
                         {watchlist.map((movie) => (
                             <div key={movie.id} className='watch-later-item'>
-                                <MovieCard title={movie.title} image={movie.image} genre={movie.genre} rating={movie.rating} variant="watchlist" onButtonClick={() => removeFromWatchlist(movie.id)}/>
+                                <MovieCard key={movie.id} {...movie} variant="watchlist" onButtonClick={() => removeFromWatchlist(movie.id)}/>
                             </div>
                         ))}
                     </div>
