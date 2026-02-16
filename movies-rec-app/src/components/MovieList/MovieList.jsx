@@ -6,7 +6,7 @@ function MovieList({ movies, onWatchLater }) {
         <div className='movie-list-container'>
             {movies.length > 0 ? (
                 movies.map((movie) => (
-                <MovieCard key={movie.id} title={movie.title} image={movie.image} genre={movie.genre} rating={movie.rating} onButtonClick={() => onWatchLater(movie)} variant="add"/>
+                <MovieCard key={movie.id} {...movie} onButtonClick={() => onWatchLater(movie)} variant="add"/>
             ))) : (
                 <p className='no-results'>No movies found matching your search!</p>
             )}

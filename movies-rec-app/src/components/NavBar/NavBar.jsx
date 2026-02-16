@@ -1,10 +1,11 @@
+import { NavLink } from 'react-router-dom';
 import './NavBar.css';
 
-function NavBar({setScreen, currentScreen}) {
+function NavBar() {
     return (
         <div className="nav-buttons">
-          <button className={`nav-button ${currentScreen === 'home' ? 'active' : ''}`} onClick={() => setScreen('home')}>Home</button>
-          <button className={`nav-button ${currentScreen === 'watchlist' ? 'active' : ''}`} onClick={() => setScreen('watchlist')}>Watchlist</button>
+          <NavLink to="/" className={({isActive}) => `nav-button ${isActive ? 'active' : ''}`}>Home</NavLink>
+          <NavLink to="/watchlist" className={({isActive}) => `nav-button ${isActive ? 'active' : ''}`}>Watchlist</NavLink>
         </div>
     );
 }

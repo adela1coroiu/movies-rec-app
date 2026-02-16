@@ -1,3 +1,4 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from "../Header/Header.jsx";
 import NavBar from "../NavBar/NavBar.jsx";
 import MovieList from "../MovieList/MovieList.jsx";
@@ -8,10 +9,10 @@ import { useState } from "react";
 import WatchLater from "../WatchLater/WatchLater.jsx";
 import moviesData from '../../../movies_data/movies.json';
 import SearchBar from "../SearchBar/SearchBar.jsx";
+import MovieDetails from '../MovieDetails/MovieDetails.jsx';
 
 function App() {
   const { addToWatchlist } = useWatchlist();
-  const [currentScreen, setCurrentScreen] = useState('home');
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedRating, setSelectedRating] = useState("");
@@ -24,26 +25,35 @@ function App() {
   });
 
   return (
-    <div className="app-container">
-      {/* header component for the title dock with title and logo */}
-      <Header/>
+    <BrowserRouter>
+      <div className="app-container">
+        {/* header component for the title dock with title and logo */}
+        <Header/>
 
-      <main className="main-container">
-        {/* navigation row with two buttons, home and watchlist */}
-        <NavBar setScreen={setCurrentScreen} currentScreen={currentScreen}/>
+        <main className="main-container">
+          {/* navigation row with two buttons, home and watchlist */}
+          <NavBar />
 
-        {currentScreen === 'home' ? (
-          <>
-            <SearchBar query={searchQuery} setQuery={setSearchQuery}/>
-            {/* filters for search, such as genre and rating */}
-            <FiltersBar selectedGenre={selectedGenre} onGenreChange={setSelectedGenre} selectedRating={selectedRating} onRatingChange={setSelectedRating}/>
-            <MovieList movies={filteredMovies} onWatchLater={addToWatchlist}/>
-          </>
-        ) : (
-          <WatchLater/>
-        )}
-      </main>     
-    </div>
+          <Routes>
+            {/* home page route */}
+            <Route path="/" element={
+              <>
+                <SearchBar query={searchQuery} setQuery={setSearchQuery}/>
+                {/* filters for search, such as genre and rating */}
+                <FiltersBar selectedGenre={selectedGenre} onGenreChange={setSelectedGenre} selectedRating={selectedRating} onRatingChange={setSelectedRating}/>
+                <MovieList movies={filteredMovies} onWatchLater={addToWatchlist}/>
+              </>
+            } />
+
+            {/* watch later route */}
+            <Route path="/watchlist" element={<WatchLater />} />
+
+            {/* individual movie details route */}
+            <Route path="/movies/:id" element={<MovieDetails />} />
+          </Routes>
+        </main>     
+      </div>
+    </BrowserRouter>
   );
 }
 
