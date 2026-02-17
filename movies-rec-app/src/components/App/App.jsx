@@ -14,21 +14,23 @@ import Layout from '../Layout/Layout.jsx';
 function App() {
   const { addToWatchlist } = useWatchlist();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams(); //returns a tuple of the current url's urlsearchparams 
+  // and a function to update them
 
   const searchQuery = searchParams.get("search") || "";
   const selectedGenre = searchParams.get("genre") || "";
   const selectedRating = searchParams.get("rating") || "";
 
   const updateFilters = (key, value) => {
-    const newParams = new URLSearchParams(searchParams);
+    const newParams = new URLSearchParams(searchParams); //cloning the current set of url params
     if(value) {
-      newParams.set(key, value);
+      newParams.set(key, value); //if the value exists, it created/overwrites the specific param
     }
     else {
-      newParams.delete(key);
+      newParams.delete(key); //in case it doesn't exist, then it cleans up the url, removing the key from the url search params
     }
-    setSearchParams(newParams);
+    setSearchParams(newParams); //by calling the updating function of the urlsearchparams, we re-render the app component
+    //thus updating the filteredMovies that are being passed onto the MovieList component
   }
 
   const filteredMovies = moviesData.filter((movie) => {
