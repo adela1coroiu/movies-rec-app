@@ -9,6 +9,7 @@ import WatchLater from "../WatchLater/WatchLater.jsx";
 import moviesData from '../../../movies_data/movies.json';
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import MovieDetails from '../MovieDetails/MovieDetails.jsx';
+import Layout from '../Layout/Layout.jsx';
 
 function App() {
   const { addToWatchlist } = useWatchlist();
@@ -38,33 +39,25 @@ function App() {
   });
 
   return (
-      <div className="app-container">
-        {/* header component for the title dock with title and logo */}
-        <Header/>
+    <Routes>
+      {/* parent layout route */}
+      <Route path="/" element={ <Layout />}>
+        <Route index element={
+        <>
+          <SearchBar query={searchQuery} setQuery={(value) => updateFilters("search", value)}/>
+          {/* filters for search, such as genre and rating */}
+          <FiltersBar selectedGenre={selectedGenre} onGenreChange={(value) => updateFilters("genre", value)} selectedRating={selectedRating} onRatingChange={(value) => updateFilters("rating", value)}/>
+          <MovieList movies={filteredMovies} onWatchLater={addToWatchlist}/>
+        </>
+        } />
 
-        <main className="main-container">
-          {/* navigation row with two buttons, home and watchlist */}
-          <NavBar />
-
-          <Routes>
-            {/* home page route */}
-            <Route path="/" element={
-              <>
-                <SearchBar query={searchQuery} setQuery={(value) => updateFilters("search", value)}/>
-                {/* filters for search, such as genre and rating */}
-                <FiltersBar selectedGenre={selectedGenre} onGenreChange={(value) => updateFilters("genre", value)} selectedRating={selectedRating} onRatingChange={(value) => updateFilters("rating", value)}/>
-                <MovieList movies={filteredMovies} onWatchLater={addToWatchlist}/>
-              </>
-            } />
-
-            {/* watch later route */}
-            <Route path="/watchlist" element={<WatchLater />} />
-
-            {/* individual movie details route */}
-            <Route path="/movies/:id" element={<MovieDetails />} />
-          </Routes>
-        </main>     
-      </div>
+        {/* child routes */}
+        {/* watch later route */}
+        <Route path="/watchlist" element={<WatchLater />} />
+        {/* individual movie details route */}
+        <Route path="/movies/:id" element={<MovieDetails />} />
+      </Route>
+    </Routes>
   );
 }
 
