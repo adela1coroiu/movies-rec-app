@@ -15,9 +15,11 @@
   border: 1px solid red;
 }
 
-.nav-button .active {
-  border: 2px solid white;
+.nav-button.active {
+  border: 1px solid white;
+  background-color: rgb(255, 132, 0);
   transform: scale(1.10);
+  font-weight: bold;
 }
 
 .nav-button:hover {
