@@ -1,10 +1,7 @@
 import { Route, Routes, useSearchParams } from 'react-router-dom';
-import Header from "../Header/Header.jsx";
-import NavBar from "../NavBar/NavBar.jsx";
 import MovieList from "../MovieList/MovieList.jsx";
 import FiltersBar from "../FiltersBar/FiltersBar.jsx";
 import "./App.css";
-import { useWatchlist } from "../../hooks/useWatchlist.js";
 import WatchLater from "../WatchLater/WatchLater.jsx";
 import moviesData from '../../../movies_data/movies.json';
 import SearchBar from "../SearchBar/SearchBar.jsx";
@@ -12,7 +9,6 @@ import MovieDetails from '../MovieDetails/MovieDetails.jsx';
 import Layout from '../Layout/Layout.jsx';
 
 function App() {
-  const { watchlist, addToWatchlist, removeFromWatchlist } = useWatchlist();
 
   const [searchParams, setSearchParams] = useSearchParams(); //returns a tuple of the current url's urlsearchparams 
   // and a function to update them
@@ -49,10 +45,7 @@ function App() {
           <SearchBar query={searchQuery} setQuery={(value) => updateFilters("search", value)}/>
           {/* filters for search, such as genre and rating */}
           <FiltersBar selectedGenre={selectedGenre} onGenreChange={(value) => updateFilters("genre", value)} selectedRating={selectedRating} onRatingChange={(value) => updateFilters("rating", value)}/>
-          <MovieList movies={filteredMovies} watchlist={watchlist} onToggleWatchlist={(movie) => {
-            const isAdded = watchlist.some(m => m.id === movie.id);
-            isAdded ? removeFromWatchlist(movie.id) : addToWatchlist(movie);
-          }}/>
+          <MovieList movies={filteredMovies} />
         </>
         } />
 

@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { useWatchlist } from '../../hooks/useWatchlist';
 import MovieCard from '../MovieCard/MovieCard';
 import './WatchLater.css';
+import { useSelector } from 'react-redux';
 
 function WatchLater() {
-    const { watchlist, removeFromWatchlist } = useWatchlist();
+    const watchlist = useSelector((state) => state.watchlist.items);
 
     return (
         <div className='watch-later-screen'>
@@ -21,7 +21,7 @@ function WatchLater() {
                     <div className='watchlater-list-container'>
                         {watchlist.map((movie) => (
                             <div key={movie.id} className='watch-later-item'>
-                                <MovieCard key={movie.id} {...movie} variant="watchlist" isAdded={true} onButtonClick={() => removeFromWatchlist(movie.id)}/>
+                                <MovieCard key={movie.id} {...movie} variant="watchlist" isAdded={true} />
                             </div>
                         ))}
                     </div>
