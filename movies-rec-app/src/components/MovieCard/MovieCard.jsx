@@ -1,10 +1,24 @@
 import './MovieCard.css'
 import { Link } from 'react-router-dom';
 import watchLaterIcon from '../../assets/watchlater.png'
+import { useDispatch, useSelector } from 'react-redux';
+import { addToWatchlist, removeFromWatchlist } from '../../store/watchlistSlice';
 
-function MovieCard({ id, title, image, genre, rating, onButtonClick, isAdded }) {
+function MovieCard({ id, title, image, genre, rating }) {
     const path = '../../../movies_data/images/';
     
+    const dispatch = useDispatch();
+
+    const isAdded = useSelector((state) => state.watchlist.items.some(movie => movie.id === id));
+
+    const handleToggle = () => {
+        if(isAdded) {
+            dispatch(removeFromWatchlist(id));
+        }
+        else {
+            dispatch(addToWatchlist({id, title, image, genre, rating}))
+        }
+    }
 
     const getRatingColor = (score) => {
         const scoreParsed = parseFloat(score);
@@ -21,7 +35,7 @@ function MovieCard({ id, title, image, genre, rating, onButtonClick, isAdded }) 
                     <img src={`${path}/${image}`} alt={title} className='movie-image'/>
                 </Link>
 
-                <button className={`slider-track ${isAdded ? 'active' : ''}`} onClick={onButtonClick}>
+                <button className={`slider-track ${isAdded ? 'active' : ''}`} onClick={handleToggle}>
                     {/* <div className='slider-handle'></div> */}
                     <img src={watchLaterIcon} alt="watch later slider" className='handle-icon'/>
                 </button>
