@@ -1,9 +1,8 @@
 import './MovieCard.css'
-import watchLaterIcon from '../../assets/watchlater.png'
-import deleteIcon from '../../assets/trash.png';
 import { Link } from 'react-router-dom';
+import watchLaterIcon from '../../assets/watchlater.png'
 
-function MovieCard({ id, title, image, genre, rating, onButtonClick, variant }) {
+function MovieCard({ id, title, image, genre, rating, onButtonClick, isAdded }) {
     const path = '../../../movies_data/images/';
     
 
@@ -14,10 +13,6 @@ function MovieCard({ id, title, image, genre, rating, onButtonClick, variant }) 
         return 'low-rating';
     }
 
-    const isWatchlist = variant === 'watchlist';
-    const icon = isWatchlist ? deleteIcon : watchLaterIcon;
-    const buttonAlt = isWatchlist ? "remove movie from watch later list" : "add movie to watch later list";
-
     return (
         <div className='movie-card'>
             <div className="image-container">
@@ -25,10 +20,10 @@ function MovieCard({ id, title, image, genre, rating, onButtonClick, variant }) 
                 <Link to={`/movies/${id}`}>
                     <img src={`${path}/${image}`} alt={title} className='movie-image'/>
                 </Link>
-                
-                {/* watch later/remove movie button overlaying the movie image */}
-                <button className={isWatchlist ? "remove-button" : "watch-later-button"} title={buttonAlt} onClick={onButtonClick}>
-                    <img src={icon} alt={buttonAlt} />
+
+                <button className={`slider-track ${isAdded ? 'active' : ''}`} onClick={onButtonClick}>
+                    {/* <div className='slider-handle'></div> */}
+                    <img src={watchLaterIcon} alt="watch later slider" className='handle-icon'/>
                 </button>
             </div>
             <Link to={`/movies/${id}`} style={{textDecoration: 'none', color: 'inherit'}}>
@@ -37,6 +32,8 @@ function MovieCard({ id, title, image, genre, rating, onButtonClick, variant }) 
             
             <div className='movie-genre'>{genre}</div>
             <div className={`movie-rating ${getRatingColor(rating)}`}>{rating}⭐</div>
+
+            
         </div>
     );
 }
