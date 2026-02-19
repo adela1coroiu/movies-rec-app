@@ -25,40 +25,6 @@
     display: block;
 }
 
-.watch-later-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    border: none;
-}
-
-.watch-later-button:hover img {
-    transform: scale(1.20);
-}
-
-.watch-later-button img {
-    width: 42px;
-    height: 42px;
-}
-
-.remove-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    border: none;
-}
-
-.remove-button:hover img {
-    transform: scale(1.20);
-}
-
-.remove-button img {
-    width: 36px;
-    height: 36px;
-}
-
 .movie-title {
     font-weight: bold;
     font-size: 20px;
@@ -88,5 +54,35 @@
 .low-rating {
     color: rgb(220, 125, 0);
     background-color: rgb(255, 221, 180);
+}
+
+.slider-track {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 28px;
+    background-color: #9e9e9e;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    padding: 3px;
+    display: flex;
+    align-items: center; 
+}
+
+.slider-track.active {
+    background-color: #4CAF50; 
+}
+
+
+.handle-icon {
+    width: 25px;
+    height: 25px;
+    transition: transform 0.3s;
+}
+
+.slider-track.active .handle-icon {
+    transform: translateX(21px);
 }
 
